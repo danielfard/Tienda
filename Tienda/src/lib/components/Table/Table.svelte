@@ -1,35 +1,17 @@
 <script lang="ts">
     import { goto } from "$app/navigation"; // Importar la función para redirigir
-
+    import { page } from "$app/stores";
     export let items: any[] = [];
-    export let tableName: String;
+    export const tableName: String = "";
     export let headers: String[] = [];
 
-    let activeMenu = null; // Variable para controlar qué menú está abierto
-
-    // Función para redirigir a la página de creación de productos
-    function goToCreateProduct() {
-        goto("/product/create"); // Redirigir a la ruta de creación de producto
-    }
-
-    function goToProduct(id) {
-        goto(`/product/${id}`);
+    function goToPage(id: string) {
+        goto(`${$page.url.pathname}/${id}`);
     }
 </script>
 
 <!-- Estructura del componente -->
 <div class="flex flex-col gap-4">
-    <div class="flex justify-between">
-        <div class="text-2xl font-semibold text-slate-950">{tableName}</div>
-        <!-- Botón que redirige a la página de creación de productos -->
-        <button
-            class="btn text-white bg-slate-950"
-            on:click={goToCreateProduct}
-        >
-            Crear {tableName}
-        </button>
-    </div>
-
     <div class="overflow-x-auto">
         <table class="table-auto w-full">
             <!-- Encabezados de la tabla -->
@@ -47,7 +29,7 @@
                 {#each items as item (item.id)}
                     <tr
                         class="border-t hover:bg-gray-200 cursor-pointer"
-                        on:click={() => goToProduct(item.id)}
+                        on:click={() => goToPage(item.id)}
                     >
                         {#each headers as key}
                             <td class="px-4 py-2 text-center">{item[key]}</td>

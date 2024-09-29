@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Table } from "../../lib/components/index";
+    import { Table, Tab } from "$lib/components";
     export let data: { products: Product[] };
     type Product = {
         id: Number;
@@ -12,6 +12,7 @@
 </script>
 
 <div>
+    <Tab labelButton={'Crear producto'} tableName={"Productos"}></Tab>
     <Table
         headers={["id", "name", "price", "description"]}
         {items}

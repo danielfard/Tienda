@@ -27,6 +27,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"svelte-icons": "^2.1.0"
+		"svelte-icons": "^2.1.0",
+		"svelte-select": "^5.8.3"
 	}
 }

@@ -2,30 +2,51 @@
     export let data; // 'data' proviene del load en +page.server.ts
     import { goto } from "$app/navigation";
     import Icon from "@iconify/svelte";
-
+    import { Dropdown } from "$lib/components";
     let showAlert = false;
+
+    type Order = {
+        id: Number;
+        productId: Number;
+        quantity: Number;
+        totalPrice: Number;
+        customerName: String;
+        status: String;
+    };
     type Product = {
         id: Number;
-        name: String;
-        price: Number;
-        description: String;
+        name: Number;
+        price: String;
     };
-    let showDeleteModal = false; // Controla la visibilidad del modal
-    let selectedProductId: string = "";
-    let productDetail: Product = data.product;
+    let showDeleteModal = false;
+    let selectedOrderId: string = "";
+    let orderDetail: Order = data?.order;
+    let Allproducts: Product[] = data?.products;
     let editActivated: boolean = false;
-    // Mostrar el modal de confirmación de eliminación y pasar el id del producto
+
     function confirmDelete(id: string) {
-        selectedProductId = id; // Asigna el id del producto a eliminar
+        selectedOrderId = id; // Asigna el id de la orden a eliminar
         showDeleteModal = true; // Muestra el modal
     }
-    // Cancelar la eliminación
+
     function cancelDelete() {
         showDeleteModal = false; // Cierra el modal sin eliminar
     }
+
+    let productItems = Allproducts.map((product) => {
+        return { label: product.name, value: Number(product.id) };
+    });
+    let selectedProductId = "";
+    $: selectedProductId;
+    let selectedItem = productItems.filter(
+        (product) => product.value == orderDetail.productId,
+    )[0];
+
+    $: selectedProductId = selectedItem;
+    let idSelected = selectedProductId?.value;
 </script>
 
-{#if productDetail}
+{#if orderDetail}
     <div class="flex gap-2 text-md font-semibold text-slate-950">
         <Icon
             icon="mdi:arrow-back"
@@ -33,64 +54,96 @@
             height="24"
             style="color:slate-950"
         />
-        <button on:click={() => goto("/product")}> Regresar </button>
+        <button on:click={() => goto("/order")}> Regresar </button>
     </div>
     <div class="mx-auto p-6">
         <div class="card w-full bg-base-100 shadow-xl">
             <div class="card-body">
                 <h1 class="text-2xl font-semibold text-slate-950">
-                    Información del producto
+                    Información de la orden
                 </h1>
                 <!-- Información del producto en forma de tarjetas -->
                 <div class="flex flex-col gap-4">
                     <div class="card bg-base-200 p-4">
-                        <h3 class="font-bold text-lg">ID del Producto</h3>
-                        <p class="text-md text-gray-600">{productDetail.id}</p>
+                        <h3 class="font-bold text-lg">ID de la orden</h3>
+                        <p class="text-md text-gray-600">
+                            {orderDetail.id}
+                        </p>
                     </div>
                     <div class="card bg-base-200 p-4">
                         <h3 class="font-bold text-lg">Nombre del producto</h3>
                         {#if editActivated}
-                            <input
-                                type="text"
-                                placeholder="Nombre del producto"
-                                class="input w-full max-w-xs"
-                                bind:value={productDetail.name}
-                            />
+                            <Dropdown
+                                items={productItems}
+                                bind:value={selectedProductId}
+                                id={"productId"}
+                                placeholder="Seleccione un producto"
+                            ></Dropdown>
                         {:else}
                             <p class="text-md text-gray-600">
-                                {productDetail.name}
+                                {selectedItem?.label}
                             </p>
                         {/if}
                     </div>
-
                     <div class="card bg-base-200 p-4">
-                        <h3 class="font-bold text-lg">Precio</h3>
+                        <h3 class="font-bold text-lg">Nombre del cliente</h3>
+                        {#if editActivated}
+                            <input
+                                type="text"
+                                placeholder="Nombre del cliente"
+                                class="input w-full max-w-xs"
+                                bind:value={orderDetail.customerName}
+                            />
+                        {:else}
+                            <p class="text-md text-gray-600">
+                                {orderDetail.customerName}
+                            </p>
+                        {/if}
+                    </div>
+                    <div class="card bg-base-200 p-4">
+                        <h3 class="font-bold text-lg">Cantidad</h3>
                         {#if editActivated}
                             <input
                                 type="number"
-                                placeholder="Precio"
+                                placeholder="Cantidad"
                                 class="input w-full max-w-xs"
-                                bind:value={productDetail.price}
+                                bind:value={orderDetail.quantity}
                             />
                         {:else}
                             <p class="text-md text-gray-600">
-                                ${productDetail.price}
+                                {orderDetail.quantity}
                             </p>
                         {/if}
                     </div>
 
                     <div class="card bg-base-200 p-4">
-                        <h3 class="font-bold text-lg">Descripción</h3>
+                        <h3 class="font-bold text-lg">Total</h3>
                         {#if editActivated}
                             <input
-                                type="text"
-                                placeholder="Descripción"
+                                type="number"
+                                placeholder="Total"
                                 class="input w-full max-w-xs"
-                                bind:value={productDetail.description}
+                                bind:value={orderDetail.totalPrice}
                             />
                         {:else}
                             <p class="text-md text-gray-600">
-                                {productDetail.description}
+                                {orderDetail.totalPrice}
+                            </p>
+                        {/if}
+                    </div>
+
+                    <div class="card bg-base-200 p-4">
+                        <h3 class="font-bold text-lg">Estatus</h3>
+                        {#if editActivated}
+                            <input
+                                type="text"
+                                placeholder="Estatus"
+                                class="input w-full max-w-xs"
+                                bind:value={orderDetail.status}
+                            />
+                        {:else}
+                            <p class="text-md text-gray-600">
+                                {orderDetail.status}
                             </p>
                         {/if}
                     </div>
@@ -105,36 +158,45 @@
                             >
                             <button
                                 class="btn btn-error"
-                                on:click={() => confirmDelete(productDetail.id)}
+                                on:click={() => confirmDelete(orderDetail.id)}
                                 >Eliminar</button
                             >
                         </div>
 
-                        <!-- Formulario para actualizar producto -->
                         <form
-                            action="?/updateProduct"
+                            action="?/updateOrder"
                             method="post"
                             class={editActivated ? "" : "hidden"}
                         >
                             <input
                                 type="hidden"
                                 name="id"
-                                value={productDetail.id}
+                                value={orderDetail.id}
                             />
                             <input
                                 type="hidden"
-                                name="name"
-                                value={productDetail.name}
+                                name="productId"
+                                value={selectedProductId?.value}
                             />
                             <input
                                 type="hidden"
-                                name="price"
-                                value={productDetail.price}
+                                name="quantity"
+                                value={orderDetail.quantity}
                             />
                             <input
                                 type="hidden"
-                                name="description"
-                                value={productDetail.description}
+                                name="totalPrice"
+                                value={orderDetail.totalPrice}
+                            />
+                            <input
+                                type="hidden"
+                                name="customerName"
+                                value={orderDetail.customerName}
+                            />
+                            <input
+                                type="hidden"
+                                name="status"
+                                value={orderDetail.status}
                             />
 
                             <button class="btn btn-primary" type="submit"
@@ -153,14 +215,14 @@
         class="modal modal-open fixed inset-0 flex justify-center items-center bg-black bg-opacity-50"
     >
         <div class="modal-box">
-            <h3 class="font-bold text-lg">Eliminar Producto</h3>
+            <h3 class="font-bold text-lg">Eliminar Orden</h3>
             <p class="py-4">
-                ¿Estás seguro de que deseas eliminar el producto con ID: {selectedProductId}?
+                ¿Estás seguro de que deseas eliminar la orden con ID: {selectedOrderId}?
             </p>
             <div class="modal-action">
                 <!-- Formulario para enviar la solicitud DELETE -->
-                <form action="?/deleteProduct" method="post">
-                    <input type="hidden" name="id" value={selectedProductId} />
+                <form action="?/deleteOrder" method="post">
+                    <input type="hidden" name="id" value={selectedOrderId} />
 
                     <button type="submit" class="btn btn-error">Eliminar</button
                     >
