@@ -1,38 +1,37 @@
-# create-svelte
+# Svelte Tienda Project
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Este proyecto es una aplicación frontend construida con Svelte. Svelte es un framework para construir interfaces de usuario eficientes, con un enfoque en la reactividad y en la minimización de código innecesario.
 
-## Creating a project
+## Requisitos Previos
 
-If you're seeing this, you've probably already done this step. Congrats!
+Antes de empezar, asegúrate de tener instalado lo siguiente:
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- [Node.js](https://nodejs.org/) (versión 14 o superior)
+- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Instalación
 
-## Developing
+1. Clona este repositorio:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+   ```bash
+   git clone https://github.com/danielfard/Tienda.git
 
-```bash
-npm run dev
+2. Navega al directorio del proyecto:
+    cd Tienda
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+3. Instala las dependencias:
+    npm install
 
-## Building
+Modo desarrollo:
+    npm run dev
 
-To create a production version of your app:
+### Estructura del proyecto
+src/
+ ┣ static/         # Archivos estáticos como imágenes, fuentes, etc.
+ ┣ components/     # Componentes Svelte reutilizables
+ ┣ routes/         # Rutas de la aplicación
+ ┣ App.svelte      # Componente principal de la aplicación
+ ┗ main.js         # Archivo de entrada de la aplicación
 
-```bash
-npm run build
-```
 
-You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
