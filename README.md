@@ -26,12 +26,13 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
     ```bash
     npm install
 
-Modo desarrollo:
+### Modo desarrollo:
 
     ```bash
     npm run dev
 
 ### Estructura del proyecto
+```bash
 src/
  ┣ static/         # Archivos estáticos como imágenes, fuentes, etc.
  ┣ components/     # Componentes Svelte reutilizables
