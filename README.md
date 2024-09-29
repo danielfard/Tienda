@@ -8,6 +8,10 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 - [Node.js](https://nodejs.org/) (versión 14 o superior)
 - [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
+- Tener el backend encendido que se consigue en el siguiente link
+
+    ```bash
+    https://github.com/danielfard/catalog-order-api.git
 
 ## Instalación
 
