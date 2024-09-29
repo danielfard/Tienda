@@ -33,12 +33,12 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
 
 ### Estructura del proyecto
 ```bash
-src/
- ┣ static/         # Archivos estáticos como imágenes, fuentes, etc.
- ┣ components/     # Componentes Svelte reutilizables
+src/    
+ ┣ lib/     
+    ┣ components/     # Componentes Svelte reutilizables 
  ┣ routes/         # Rutas de la aplicación
  ┣ App.svelte      # Componente principal de la aplicación
  ┗ main.js         # Archivo de entrada de la aplicación
-
+static/         # Archivos estáticos como imágenes, fuentes, etc.
 
 
