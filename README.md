@@ -17,12 +17,18 @@ Antes de empezar, asegúrate de tener instalado lo siguiente:
    git clone https://github.com/danielfard/Tienda.git
 
 2. Navega al directorio del proyecto:
+
+    ```bash
     cd Tienda
 
 3. Instala las dependencias:
+
+    ```bash
     npm install
 
 Modo desarrollo:
+
+    ```bash
     npm run dev
 
 ### Estructura del proyecto
