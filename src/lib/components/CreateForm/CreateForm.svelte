@@ -28,7 +28,7 @@
     let errorMessage = data?.errorMessage || "";
 </script>
 
-<div class="flex flex-col max-w-lg mx-auto my-10 p-5 border rounded gap-2">
+<div class="flex flex-col max-w-lg mx-auto my-10 p-5 border rounded gap-2 bg-white rounded-lg">
     <!-- Botón de regresar -->
     <div class="flex gap-2 text-md font-semibold text-slate-950">
         <Icon

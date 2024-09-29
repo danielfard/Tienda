@@ -14,8 +14,9 @@
     let items: Order[] = data.orders;
 </script>
 
-<div>
+<div class="">
     <Tab labelButton={'Crear orden'} tableName={"Ordenes"}></Tab>
+    <br>
     <Table
         headers={[
             "id",

@@ -5,8 +5,8 @@
     export let labelButton: string;
 </script>
 
-<div class="flex justify-between">
-    <div class="text-2xl font-semibold text-slate-950">
+<div class="flex justify-between ">
+    <div class="text-2xl font-semibold text-slate-950 content-center">
         {tableName}
     </div>
     <button

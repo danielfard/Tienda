@@ -13,6 +13,7 @@
 
 <div>
     <Tab labelButton={'Crear producto'} tableName={"Productos"}></Tab>
+    <br>
     <Table
         headers={["id", "name", "price", "description"]}
         {items}

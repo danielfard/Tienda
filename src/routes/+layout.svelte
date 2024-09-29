@@ -3,7 +3,7 @@
 	export { load } from "sveltekit-flash-message/server";
 </script>
 
-<div>
+<div class="bg-gray-100">
 	<div class="navbar bg-base-100 bg-slate-950">
 		<div class="flex-1">
 			<a class="btn btn-ghost text-xl text-white" href="/">Tienda</a>

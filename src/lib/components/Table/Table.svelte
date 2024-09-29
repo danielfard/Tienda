@@ -11,7 +11,7 @@
 </script>
 
 <!-- Estructura del componente -->
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 bg-white rounded-lg">
     <div class="overflow-x-auto">
         <table class="table-auto w-full">
             <!-- Encabezados de la tabla -->
